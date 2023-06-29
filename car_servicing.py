@@ -10,10 +10,10 @@ class  Serviceable(ABC):
 class CarFactory:
     # car creation methods
     def create_calliope(self, current_date, last_service_date, current_mileage, last_service_mileage):
-        # capulet + spindler
+        # capulet + spindler (tires not specified in instructions)
         engine = Capulet(last_service_mileage, current_mileage)
         battery = Spindler(last_service_date, current_date)
-        tires = None
+        tires = None 
         car = Car(engine, battery, tires)
         return car
 
