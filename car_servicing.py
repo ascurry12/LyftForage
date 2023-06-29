@@ -98,7 +98,7 @@ class Spindler(Battery):
     def __init__(self, last_service_date, current_date):
         self.last_service_date = last_service_date
         self.current_date = current_date
-        self.service_expiry = 2
+        self.service_expiry = 3
 
     def needs_service(self):
         return self.current_date.year >= self.last_service_date.year + self.service_expiry
@@ -111,3 +111,34 @@ class Nubbin(Battery):
 
     def needs_service(self):
         return self.current_date.year >= self.last_service_date.year + self.service_expiry
+    
+# Tire parent class; 2 child classes
+class Tires:
+    def needs_service(self):
+        pass
+
+class Carrigan(Tires):
+    def __init__(self, tire_wear):
+        self.tire_wear = tire_wear
+        self.max_wear = 0.9
+
+    def needs_service(self):
+        for i in self.tire_wear:
+            if i >= self.max_wear:
+                return True
+        return False
+
+class OctoPrime(Tires):
+    def __init__(self, tire_wear):
+        self.tire_wear = tire_wear
+        self.max_wear = 3
+
+    def needs_service(self):
+        wear_sum = 0
+        for i in self.tire_wear:
+            wear_sum += i
+        
+        if wear_sum >= self.max_wear:
+            return True
+
+        return False

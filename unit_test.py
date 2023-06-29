@@ -6,6 +6,8 @@ from car_servicing import Willoughby
 from car_servicing import Sternman
 from car_servicing import Spindler
 from car_servicing import Nubbin
+from car_servicing import Carrigan
+from car_servicing import OctoPrime
 
 class TestCapulet(unittest.TestCase):
     def test_engine_needs_no_service(self):
@@ -60,7 +62,7 @@ class TestSpindler(unittest.TestCase):
     
     def test_battery_needs_service(self):
         today = datetime.today().date()
-        last_service_date = today.replace(year=today.year - 2)
+        last_service_date = today.replace(year=today.year - 3)
 
         battery = Spindler(last_service_date, today)
         self.assertTrue(battery.needs_service())
@@ -79,3 +81,29 @@ class TestNubbin(unittest.TestCase):
 
         battery = Nubbin(last_service_date, today)
         self.assertTrue(battery.needs_service())
+
+class TestCarrigan(unittest.TestCase):
+    def test_tires_need_no_service(self):
+        tire_wear = [0.5, 0.7, 0.1, 0]
+
+        tires = Carrigan(tire_wear)
+        self.assertFalse(tires.needs_service())
+    
+    def test_tires_need_service(self):
+        tire_wear = [0.3, 0.5, 1, 0.3]
+
+        tires = Carrigan(tire_wear)
+        self.assertTrue(tires.needs_service())
+
+class TestOctoPrime(unittest.TestCase):
+    def test_tires_need_no_service(self):
+        tire_wear = [0.1, 0.7, 0.1, 1]
+
+        tires = OctoPrime(tire_wear)
+        self.assertFalse(tires.needs_service())
+    
+    def test_tires_need_service(self):
+        tire_wear = [0.9, 0.5, 1, 0.7]
+
+        tires = OctoPrime(tire_wear)
+        self.assertTrue(tires.needs_service())
